@@ -43,9 +43,9 @@ class Enterer():
         if (any(word in tweet_content for word in ["drop", "comment", "put", "reply"])) and (any(w in tweet_content for w in ["address", "wallet", "$eth", "$sol","eth","sol"])):
 
             if(any(w in tweet_content for w in ["sol", "solana"])):
-                reply = random.choice([" SOL address : {}".format(self.eth_addr)," sol : {}".format(self.eth_addr), self.sol_addr ])
+                reply = random.choice(["SOL address : {}".format(self.sol_addr)," sol : {}".format(self.sol_addr), self.sol_addr ])
             else:
-                reply = random.choice([" ETH address : {}".format(self.eth_addr)," eth : {}".format(self.eth_addr), self.eth_addr ])
+                reply = random.choice(["ETH address : {}".format(self.eth_addr)," eth : {}".format(self.eth_addr), self.eth_addr ])
             self.client.create_tweet(text=reply, in_reply_to_tweet_id=tweet.id)
 
     # check if one the banned words is in the tweet
@@ -93,6 +93,8 @@ class Enterer():
         return id_users
 
     # check contain certain words to know if it's a contest
+    # Expand the list of words to search contest of differnet areas
+    # Change the logic of check contest, e.g could be follow and rt only
     def check_is_contest(self, tweet):
         is_contest = False
         if (any(word in tweet.lower() for word in ["rt", "retweet"])) and ("follow" in tweet.lower()) and ("like" in tweet.lower()):
